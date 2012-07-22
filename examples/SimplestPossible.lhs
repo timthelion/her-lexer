@@ -24,4 +24,4 @@ And here we show you this data for your viewing pleasure.
 > putStrLn "But then we lexed that into a list of a list of Toks:"
 > putStrLn $ show tokss
 > putStrLn "And then we converted that back to Haskell source code:"
-> potStrLn unTokss
+> putStrLn unTokss
