@@ -19,5 +19,5 @@ library
     hs-source-dirs:     src    
 
 source-repository head
-  type:     darcs
-  location: http://personal.cis.strath.ac.uk/~conor/pub/she
+  type:    git 
+  location: https://github.com/timthelion/her-lexer.git
