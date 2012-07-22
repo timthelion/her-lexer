@@ -13,8 +13,8 @@ cabal-version:      >= 1.6
 build-type:         Simple
 
 library
-    exposed-modules:    HaLay
-                        Parsley
+    exposed-modules:    Language.Haskell.Her.HaLay
+                        Language.Haskell.Her.Parsley
     build-depends:      base >=3 && < 5,
                         mtl >=2 && <3
     hs-source-dirs:     src    
