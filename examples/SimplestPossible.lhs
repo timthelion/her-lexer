@@ -1,4 +1,4 @@
->import HaLay
+>import Language.Haskell.Her.HaLay
 >import System.IO
 
 Here is some source code.
