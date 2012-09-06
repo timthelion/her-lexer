@@ -1,9 +1,9 @@
 name:               her-lexer
-version:            0.0
+version:            0.1
 homepage:           http://personal.cis.strath.ac.uk/~conor/pub/she
 synopsis:           A lexer for Haskell source code.
 description:
-    This is a simple lexer which converts Haskell source code into tolkins and back to ordinary haskell again.
+    This is a simple lexer which converts Haskell source code into tokins and back to ordinary haskell again.
 category:           Language
 license:            PublicDomain
 license-file:       LICENCE
@@ -15,9 +15,10 @@ build-type:         Simple
 library
     exposed-modules:    Language.Haskell.Her.HaLay
                         Language.Haskell.Her.Parsley
-			Language.Haskell.Her.FromClutterToLines
+                        Language.Haskell.Her.FromClutterToLines
     build-depends:      base >=3 && < 5,
-                        mtl >=2 && <3
+                        mtl >=2 && <3,
+                        split >= 0
     hs-source-dirs:     src    
 
 source-repository head

@@ -144,9 +144,30 @@ Stage 2 : Group according to brackets and layout rules
 >          (Bra b, Clo b') | b == b' -> (reverse acss, its')
 >          (m, Ope b) -> case getChunks (Bra b) [] its' of
 >            (cs, its) -> getChunks m (B b cs : acss) its
->          (m, KW e) | elem e lakeys -> case getLines (Seek m e) [] its' of
->            (css, its) -> getChunks m ((L e css) : acss) its
+>          (m, KW e) | elem e lakeys ->
+>             -- First, we test if our new block starts with some { curlies.
+>             case searchCurlies [] its' of
+>             -- If so, we read these in as brackets. 
+
+              Just (css,its) -> case getLines (Seek (Bra Crl) e) [] its of
+                (css',its'') -> getChunks m ((L e (css:css')) : acss) its''
+
+>              Just (css,its) -> case getChunks (Bra Crl) [] its of
+>                (css',its'') -> getChunks m ((L e ((css++((B Crl css'):[])):[])) : acss) its''
+
+>             -- Otherwise, we read normally.
+>              Nothing -> case getLines (Seek m e) [] its' of
+>                (css, its) -> getChunks m ((L e css) : acss) its
 >          _ -> getChunks m (t : acss) its'
+
+> searchCurlies :: [Tok] -> [(Int,Tok)] -> Maybe ([Tok],[(Int,Tok)])
+> searchCurlies toks ((_,upTok):unprocessedToks) =
+>  case upTok of
+>   (Spc _) -> searchCurlies (upTok:toks) unprocessedToks
+>   (NL _)  -> searchCurlies (upTok:toks) unprocessedToks
+>   (Com _) -> searchCurlies (upTok:toks) unprocessedToks
+>   (Ope Crl) -> Just (toks,unprocessedToks)
+>   _ -> Nothing
 
  getChunks :: ChunkMode -> [Tok] -> [(Int, Tok)] -> ([Tok], [(Int, Tok)])
  getChunks _ acc [] = (reverse acc, [])
